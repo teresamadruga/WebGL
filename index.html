@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<meta charset=utf-8>
-		<title>FirstWebGLExperiment</title>
+		<title>RotatingCubeOrbit</title>
 		<style>
 			body { margin: 0; }
 			canvas { width: 100%; height: 100% }
@@ -10,36 +10,30 @@
 	</head>
 	<body>
 		<script src="js/three.js"></script>
+		<script src="js/controls/OrbitControls.js"></script>
 		<script>
-			//rotating cube
+			//rotating cube with orbit and pan controls
 			var scene = new THREE.Scene();
 			var camera = new THREE.PerspectiveCamera( 60, window.innerWidth/window.innerHeight, 0.1, 1000 );
-
-			var mistyLilac = "#BCB8C9"
-			var ultraviolet = "#5F4B8B"
-
+			var controls = new THREE.OrbitControls( camera );
+			var citrus = "#FFB025"
+			var raspberry = "#D72D5C"
 			var renderer = new THREE.WebGLRenderer();
-			renderer.setClearColor( mistyLilac );
+			renderer.setClearColor( citrus );
 			renderer.setSize( window.innerWidth, window.innerHeight );
 			document.body.appendChild( renderer.domElement );
-
 			var geometry = new THREE.BoxGeometry( 2, 2, 2 );
 			var showFrame = true;
-			var wireMaterial = new THREE.MeshBasicMaterial( { color: ultraviolet, wireframe: showFrame } ) ;
-
+			var wireMaterial = new THREE.MeshBasicMaterial( { color: raspberry, wireframe: showFrame } ) ;
 			var cube = new THREE.Mesh( geometry, wireMaterial );
 			scene.add( cube );
-
 			camera.position.z = 5;
-
 			var animate = function () {
 				requestAnimationFrame( animate );
-
 				cube.rotation.y += 0.01;
-
+				controls.update();
 				renderer.render(scene, camera);
 			};
-
 			animate();
 		</script>
 	</body>
